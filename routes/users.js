@@ -13,7 +13,6 @@ const {
   UserModel,
   validLogin,
   getToken,
-  // validCardsArray
 } = require("../models/userModel");
 
 
@@ -26,22 +25,22 @@ router.get("/", async (req, res) => {
   })
 })
 
-// router.get("/userInfo", authToken, async (req, res) => {
-//   try {
+router.get("/userInfo", authToken, async (req, res) => {
+  try {
     // query for taking out data of the user using the id that recived from token
-    //{password:0} supposed to show all props besides password
+    //{password:0} supposed to show all props exccept password
     // req.decodeToken - coming from the middleware in line 13
-//     let data = await UserModel.findOne({
-//       _id: req.tokenData._id
-//     }, {
-//       password: 0
-//     });
-//     res.json(data);
-//   } catch (err) {
-//     console.log(err)
-//     res.status(400).json(err)
-//   }
-// })
+    let data = await UserModel.findOne({
+      _id: req.tokenData._id
+    }, {
+      password: 0
+    });
+    res.json(data);
+  } catch (err) {
+    console.log(err)
+    res.status(400).json(err)
+  }
+})
 
 // reciving all the card that the user made favorite
 // router.get("/userCards", authToken, async (req, res) => {
