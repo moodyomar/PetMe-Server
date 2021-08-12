@@ -26,7 +26,7 @@ router.post("/", authToken, async(req,res) => {
   }
   try{
     let dog = new DogModel(req.body);
-    // ill adding a prop for the id of the user
+    // ill add a prop for the id of the user
     // before saving in DB
     dog.user_id = req.tokenData._id;
     await dog.save();
@@ -58,13 +58,9 @@ router.post("/", authToken, async(req,res) => {
     }
 
     try {
-      //for security reasons we check that the id = to pramater from url
       let data = await DogModel.updateOne({ _id: idEdit , user_id:req.tokenData._id }, req.body);
-      // if success we recived n:1
-      console.log("edit!##")
+      console.log("edit - in try block!",req.body)
       res.json(data);
-      console.log(req.params.idEdit);
-      
     }
     catch (err) {
       console.log(err);
@@ -73,6 +69,6 @@ router.post("/", authToken, async(req,res) => {
   })
   
 
-  
+
 
 module.exports = router;
