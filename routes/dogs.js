@@ -37,6 +37,19 @@ router.post("/", authToken, async(req,res) => {
       res.status(400).json(err);
   }
 })
+
+router.get("/single/:id", authToken, async(req,res) => {
+  let id = req.params.id;
+  try{
+      let data = await DogModel.findById({_id:id});
+      res.json(data);
+  } catch(err) {
+      console.log(err.message);
+      res.status(400).json(err.message);
+  }
+  
+})
+
   router.delete("/:idDel", authToken, async (req, res) => {
     let idDel = req.params.idDel;
     try {
